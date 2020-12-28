@@ -216,7 +216,7 @@ class FAQAdmin(admin.ModelAdmin):
 
 @admin.register(Work)
 class WorkAdmin(admin.ModelAdmin):
-    search_fields = ('id', 'title')
+    search_fields = ('id', 'title', 'worktitle__title')
     list_display = ('id', 'category', 'title', 'nsfw')
     list_filter = ('category', 'nsfw', AniDBaidListFilter)
     raw_id_fields = ('redirect',)
@@ -675,6 +675,7 @@ class PairingAdmin(admin.ModelAdmin):
 @admin.register(Reference)
 class ReferenceAdmin(admin.ModelAdmin):
     list_display = ['work', 'url']
+    raw_id_fields = ('work', 'suggestions')
 
 
 class RankingInline(admin.TabularInline):
@@ -720,3 +721,4 @@ admin.site.register(Trope)
 admin.site.register(Language)
 admin.site.register(ExtLanguage)
 admin.site.register(UserBackgroundTask)
+admin.site.site_header = "Administration Mangaki"
