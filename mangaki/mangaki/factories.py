@@ -1,4 +1,5 @@
 import factory
+import faker
 from factory.django import DjangoModelFactory, mute_signals
 
 from .models import Profile, Work, Category
@@ -14,7 +15,7 @@ class ProfileFactory(DjangoModelFactory):
     is_shared = factory.Faker('boolean')
     nsfw_ok = factory.Faker('boolean')
     newsletter_ok = factory.Faker('boolean')
-    avatar_url = factory.LazyAttribute(lambda o: '{}{}.png'.format(factory.Faker('url').generate({}), o.mal_username))
+    avatar_url = factory.LazyAttribute(lambda o: '{}{}.png'.format(faker.Faker().url(), o.mal_username))
 
 @mute_signals(post_save)
 class UserFactory(DjangoModelFactory):

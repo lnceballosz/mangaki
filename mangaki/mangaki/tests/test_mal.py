@@ -36,11 +36,11 @@ class MALTest(TestCase):
             username='Raito_Bezarius'
         )
 
-    @given(choice=st.choices(),
+    @given(choice=st.data(),
            query=st.text())
     @responses.activate
     def test_mal_client_exceptions(self, choice, query):
-        work_type = MALWorks(choice(list(map(lambda x: x.value, MALWorks))))
+        work_type = MALWorks(choice.draw(st.sampled_from(list(map(lambda x: x.value, MALWorks)))))
         catch_all = re.compile('https?://myanimelist\.net/api/.*')
         for status_code in [400, 401, 403, 500, 502]:
             with self.subTest("Testing {} status code through MAL API search wrapper".format(status_code),
